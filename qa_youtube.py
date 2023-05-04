@@ -18,7 +18,7 @@ documents = loader.load()
 
 # 初始化文本分割器
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
+    chunk_size=100,
     chunk_overlap=20
 )
 
@@ -52,7 +52,7 @@ messages = [
 prompt = ChatPromptTemplate.from_messages(messages)
 
 # 初始化问答链
-qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(temperature=0.1, max_tokens=2048), retriever, prompt)
+qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(temperature=0.1, max_tokens=1024), retriever, prompt)
 
 chat_history = []
 while True:
