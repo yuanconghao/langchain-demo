@@ -60,6 +60,6 @@ while True:
     question = input('问题：')
     # 开始发送问题 chat_history 为必须参数,用于存储对话历史
     result = qa({'question': question, 'chat_history': chat_history})
-    history = {'question': question, 'answer': result['answer']}
+    history = {(question, result['answer'])}
     chat_history.append(history)
     print(result['answer'])
