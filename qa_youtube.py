@@ -55,6 +55,7 @@ prompt = ChatPromptTemplate.from_messages(messages)
 qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(temperature=0.1, max_tokens=1024), retriever, prompt)
 
 chat_history = []
+
 while True:
     question = input('问题：')
     # 开始发送问题 chat_history 为必须参数,用于存储对话历史
