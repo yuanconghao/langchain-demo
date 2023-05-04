@@ -5,7 +5,7 @@ from langchain import OpenAI
 
 
 # 加载图片
-loader = UnstructuredImageLoader("./data/arch.png")
+loader = UnstructuredImageLoader("./data/ai_summary.jpeg")
 data = loader.load()
 print(data)
 
