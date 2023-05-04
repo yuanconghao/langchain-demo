@@ -18,7 +18,8 @@ split_docs = text_splitter.split_documents(documents)
 # 初始化openai的embeddings对象
 embeddings = OpenAIEmbeddings()
 # 将Document通过openai的embeddings对象计算embedding向量信息中临时存入chroma向量数据库，用于后续匹配查询
-docsearch = Chroma.from_documents(split_docs, embeddings, persist_directory="/data/vector_store")
+# docsearch = Chroma.from_documents(split_docs, embeddings, persist_directory="/data/vector_store")
+docsearch = Chroma.from_documents(split_docs, embeddings)
 
 # 创建问答对象
 qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch, return_source_documents=True)
