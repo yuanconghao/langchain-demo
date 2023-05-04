@@ -12,12 +12,13 @@ from langchain.prompts.chat import (
 
 # 加载 youtube 频道
 loader = YoutubeLoader.from_youtube_url("https://www.youtube.com/watch?v=O_9JoimRj8w")
+loader.language = "zh-Hans"
 # 将数据转成 document
 documents = loader.load()
 
 # 初始化文本分割器
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
+    chunk_size=500,
     chunk_overlap=20
 )
 
@@ -51,7 +52,7 @@ messages = [
 prompt = ChatPromptTemplate.from_messages(messages)
 
 # 初始化问答链
-qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(temperature=0.1, max_tokens=2048), retriever, qa_prompt=prompt)
+qa = ConversationalRetrievalChain.from_llm(ChatOpenAI(temperature=0.1, max_tokens=2048), retriever, prompt)
 
 chat_history = []
 while True:
