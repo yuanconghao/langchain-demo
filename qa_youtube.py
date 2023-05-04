@@ -11,8 +11,8 @@ from langchain.prompts.chat import (
 )
 
 # 加载 youtube 频道
-loader = YoutubeLoader.from_youtube_url("https://www.youtube.com/watch?v=O_9JoimRj8w")
-loader.language = "zh-Hans"
+loader = YoutubeLoader.from_youtube_url("https://www.youtube.com/watch?v=oU7-KMGZ4bc")
+#loader.language = "zh-Hans"
 # 将数据转成 document
 documents = loader.load()
 
@@ -58,7 +58,9 @@ chat_history = []
 
 while True:
     question = input('问题：')
+    print(question)
     # 开始发送问题 chat_history 为必须参数,用于存储对话历史
     result = qa({'question': question, 'chat_history': chat_history})
     chat_history.append((question, result['answer']))
+    print(chat_history)
     print(result['answer'])
