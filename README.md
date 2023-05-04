@@ -26,3 +26,5 @@ source .bashrc
 | google_search  | google search question, and feeding the result to openai |
 | summarization  | summarize the content |
 | image_analysis  | load the image, and analysis the image content |
+| chroma.chrome_persist | load all data and persistence in vector db chroma |
+| chroma.chrome_load | load the data from chroma, and using it |
