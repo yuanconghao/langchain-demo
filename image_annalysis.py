@@ -3,6 +3,7 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain import OpenAI
 
+
 # 加载图片
 loader = UnstructuredImageLoader("./data/arch.png")
 data = loader.load()
