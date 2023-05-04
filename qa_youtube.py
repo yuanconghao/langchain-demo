@@ -1,4 +1,3 @@
-import os
 from langchain.document_loaders import YoutubeLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
