@@ -12,7 +12,7 @@ from langchain.prompts.chat import (
 )
 
 # 加载 youtube 频道
-loader = YoutubeLoader.from_youtube_channel('https://www.youtube.com/watch?v=Dj60HHy-Kqk')
+loader = YoutubeLoader.from_youtube_url('https://www.youtube.com/watch?v=Dj60HHy-Kqk')
 # 将数据转成 document
 documents = loader.load()
 
