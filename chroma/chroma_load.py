@@ -8,7 +8,8 @@ embeddings = OpenAIEmbeddings()
 docsearch = Chroma(persist_directory="/data/vector_store", embedding_function=embeddings)
 
 # 创建问答对象
-qa = VectorDBQA.from_chain_type(llm=OpenAI(), chain_type="stuff", vectorstore=docsearch, return_source_documents=True)
+qa = VectorDBQA.from_chain_type(llm=OpenAI(model_name='ada'), chain_type="stuff", vectorstore=docsearch,
+                                return_source_documents=True)
 
 # 进行问答
 result = qa({"query": "秦逸是谁"})
