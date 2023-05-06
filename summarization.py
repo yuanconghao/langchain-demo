@@ -28,7 +28,8 @@ split_documents = text_splitter.split_documents(document)
 print(f'documents:{len(split_documents)}')
 
 # 加载llm模型
-llm = OpenAI(model_name="text-davinci-003", max_tokens=1500)
+llm = OpenAI(model_name="text-davinci-003", max_tokens=2000)
+
 
 # 创建总结链
 chain = load_summarize_chain(llm, chain_type="refine", verbose=True)
