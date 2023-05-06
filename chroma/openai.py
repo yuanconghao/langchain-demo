@@ -3,6 +3,7 @@ from langchain.vectorstores import Chroma
 from langchain import OpenAI, VectorDBQA
 import time
 
+
 # 初始化openai的embeddings对象
 embeddings = OpenAIEmbeddings()
 # 加载数据

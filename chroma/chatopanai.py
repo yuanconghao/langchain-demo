@@ -1,7 +1,6 @@
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.memory import ConversationBufferMemory
 from langchain.vectorstores import Chroma
-from langchain import OpenAI, VectorDBQA
 from langchain.chat_models import ChatOpenAI
 
 from langchain.chains import ChatVectorDBChain, ConversationalRetrievalChain
