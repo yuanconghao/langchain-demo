@@ -1,10 +1,8 @@
-from langchain.vectorstores import Chroma
-from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import DirectoryLoader
 from langchain.embeddings import OpenAIEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
 
-
-# 加载文件夹的所有txt文件
 loader = DirectoryLoader('../data/', glob='**/*.txt')
 # 将数据转成Document对象，每个文件作为一个Document
 documents = loader.load()

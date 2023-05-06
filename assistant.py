@@ -27,6 +27,8 @@ messages = []
 print("Welcome to the chatbot. Enter 'quit' to exit the program.")
 while True:
     user_message = input("You: ")
+    if user_message == 'quit':
+        break
     answer = retrieve_answer(user_message, messages)
     print("Assistant:", answer)
 
