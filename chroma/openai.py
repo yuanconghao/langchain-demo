@@ -1,4 +1,4 @@
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain import OpenAI, VectorDBQA
 import time
