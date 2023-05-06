@@ -29,7 +29,8 @@ while True:
     user_message = input("You: ")
     if user_message == 'quit':
         break
+    if len(messages) == '2':
+        messages = []
     answer = retrieve_answer(user_message, messages)
     print("Assistant:", answer)
-
     messages.append((user_message, answer))
