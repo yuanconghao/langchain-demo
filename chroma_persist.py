@@ -3,7 +3,7 @@ from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import DirectoryLoader
 
-loader = DirectoryLoader('../data/', glob='**/*.txt')
+loader = DirectoryLoader('./data/', glob='**/*.txt')
 # 将数据转成Document对象，每个文件作为一个Document
 documents = loader.load()
 
