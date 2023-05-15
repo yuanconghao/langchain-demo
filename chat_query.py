@@ -30,6 +30,7 @@ llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",
     temperature=0,
     max_tokens=1000)
+
 chain = VectorDBQAWithSourcesChain.from_chain_type(
     llm=llm,
     vectorstore=index.store,
@@ -38,14 +39,31 @@ chain = VectorDBQAWithSourcesChain.from_chain_type(
     reduce_k_below_max_tokens=True,
 )
 
-question = "谷歌旗下智能家居业务部门有哪些"
-result = chain(
-    {
-        "question": question,
-    },
-    return_only_outputs=True,
-)
+while True:
+    question = input("Question: ")
+    if question == 'quit':
+        break
 
-print(f"Question: {question}\n")
-print(f"Result: {loader.pretty_print(result['answer'])}\n")
-print(f"Sources: {result['sources']}")
+    result = chain(
+        {
+            "question": question,
+        },
+        return_only_outputs=True,
+    )
+    result = loader.pretty_print(result['answer'])
+    print(f"Result: {result}\n")
+    print(f"Sources: {result['sources']}")
+
+
+
+# question = "谷歌旗下智能家居业务部门有哪些"
+# result = chain(
+#     {
+#         "question": question,
+#     },
+#     return_only_outputs=True,
+# )
+#
+# print(f"Question: {question}\n")
+# print(f"Result: {loader.pretty_print(result['answer'])}\n")
+# print(f"Sources: {result['sources']}")
