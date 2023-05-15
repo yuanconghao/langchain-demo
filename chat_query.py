@@ -22,7 +22,7 @@ prompt = ChatPromptTemplate.from_messages(messages)
 
 index = loader.load_store(
     dirpath=const.vector_store,
-    name="md",
+    name="51talk",
 )
 
 chain_type_kwargs = {"prompt": prompt}

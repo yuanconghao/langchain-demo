@@ -3,7 +3,7 @@ from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import DirectoryLoader
 
-loader = DirectoryLoader('./data/', glob='**/*.txt')
+loader = DirectoryLoader('./data/txt/', glob='**/*.txt')
 print(loader.load())
 # 将数据转成Document对象，每个文件作为一个Document
 documents = loader.load()
@@ -12,6 +12,7 @@ documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
 # 切割加载的Document
 split_docs = text_splitter.split_documents(documents)
+print(split_docs)
 
 # 初始化openai的embeddings对象
 embeddings = OpenAIEmbeddings()

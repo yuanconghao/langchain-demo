@@ -3,6 +3,7 @@ import codecs
 from urllib.parse import quote
 
 from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import UnstructuredFileLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.text_splitter import MarkdownTextSplitter
 
@@ -76,6 +77,42 @@ def embedding_markdowns(index: Index, fpaths, url, replace_by_url):
                     metadatas.append({"source": f"{fname}#{title}"})
 
         index.scaned_files.add(fname)
+
+        print(f"scaned {fpath}")
+        i += 1
+        if i > N_BACTCH_FILES:
+            break
+
+    if i != 0:
+        index.store.add_texts(docs, metadatas=metadatas)
+
+    return i
+
+
+def embedding_51talk(index: Index, fpaths, url, replace_by_url):
+    print(fpaths)
+    i = 0
+    docs = []
+    metadatas = []
+    for fpath in fpaths:
+        fname = os.path.split(fpath)[1]
+        if is_file_scaned(index, fname):
+            continue
+
+        loader = UnstructuredFileLoader(fpath)
+        document = loader.load()
+        split_docs = text_splitter.split_documents(document)
+        docs.append(split_docs.page_content)
+        title = quote(split_docs.page_content.strip().split("\n", maxsplit=1)[0])
+        if url:
+            fnameurl = quote(fpath.removeprefix(replace_by_url), safe="")
+            furl = url + fnameurl
+            metadatas.append({"source": f"{furl}#{title}"})
+        else:
+            metadatas.append({"source": f"{fname}#{title}"})
+
+        index.scaned_files.add(fname)
+
         print(f"scaned {fpath}")
         i += 1
         if i > N_BACTCH_FILES:
