@@ -40,6 +40,7 @@ chain = VectorDBQAWithSourcesChain.from_chain_type(
     reduce_k_below_max_tokens=True,
 )
 
+chat_history = []
 while True:
     question = input("Question: ")
     if question == 'quit':
@@ -48,15 +49,16 @@ while True:
     result = chain(
         {
             "question": question,
+            "chat_history": chat_history,
         },
         return_only_outputs=True,
     )
     answer = loader.pretty_print(result['answer'])
+    chat_history.append((question, answer))
+
     sources = unquote(result['sources'])
     print(f"Result: {answer}\n")
     print(f"Sources: {sources}")
-
-
 
 # question = "谷歌旗下智能家居业务部门有哪些"
 # result = chain(
