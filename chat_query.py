@@ -50,8 +50,8 @@ while True:
         },
         return_only_outputs=True,
     )
-    result = loader.pretty_print(result['answer'])
-    print(f"Result: {result}\n")
+    answer = loader.pretty_print(result['answer'])
+    print(f"Result: {answer}\n")
     print(f"Sources: {result['sources']}")
 
 
