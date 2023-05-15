@@ -5,7 +5,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.vectorstores import Chroma
 
 embeddings = OpenAIEmbeddings()
-docsearch = Chroma(persist_directory="/data/vector_store", embedding_function=embeddings)
+docsearch = Chroma(persist_directory="/data/chroma", embedding_function=embeddings)
 llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.3)
 
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
