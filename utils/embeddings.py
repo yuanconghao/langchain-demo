@@ -7,7 +7,8 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.text_splitter import MarkdownTextSplitter
 
 from const import Index
-from const import N_BACTCH_FILES
+
+N_BACTCH_FILES = 5
 
 text_splitter = CharacterTextSplitter(chunk_size=500, separator="\n")
 markdown_splitter = MarkdownTextSplitter(chunk_size=500, chunk_overlap=50)
