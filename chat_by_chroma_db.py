@@ -34,8 +34,10 @@ embeddings = OpenAIEmbeddings()
 vectordb = Chroma.from_documents(doc_texts, embeddings, persist_directory="/data/chroma")
 vectordb.persist()
 # 创建聊天机器人对象chain
+# chain = ChatVectorDBChain.from_llm(OpenAI(temperature=0, model_name="gpt-3.5-turbo"), vectordb,
+#                                    return_source_documents=True, condense_question_prompt=prompt)
 chain = ChatVectorDBChain.from_llm(OpenAI(temperature=0, model_name="gpt-3.5-turbo"), vectordb,
-                                   return_source_documents=True, condense_question_prompt=prompt)
+                                   return_source_documents=True)
 
 
 def get_answer(question, chat_history):
