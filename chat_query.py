@@ -1,5 +1,6 @@
 from utils import loader
 from utils import const
+from urllib.parse import unquote
 
 from langchain.chains import VectorDBQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
@@ -51,8 +52,9 @@ while True:
         return_only_outputs=True,
     )
     answer = loader.pretty_print(result['answer'])
+    sources = unquote(result['sources'])
     print(f"Result: {answer}\n")
-    print(f"Sources: {result['sources']}")
+    print(f"Sources: {sources}")
 
 
 
