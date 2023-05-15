@@ -13,23 +13,24 @@ rqa = ConversationalRetrievalChain.from_llm(llm, docsearch.as_retriever(), memor
 
 def retrieve_answer(query, chat_history):
     memory.chat_memory.add_user_message(query)
-    result = rqa({"question": query})
+    res = rqa({"question": query})
+    retrieval_result = res["answer"]
 
-    sources = []
-    if result['source_documents'] is not None:
-        for source in result['source_documents']:
-            sources.append(source.metadata['source'])
-    return {'answer': result["answer"], 'sources': sources}
+    if "The given context does not provide" in retrieval_result:
+        base_result = llm.generate([query])
+        return base_result.generations[0][0].text
+    else:
+        return retrieval_result
 
+messages = []
 
-chat_history = []
+print("Welcome to the chatbot. Enter 'quit' to exit the program.")
 while True:
     user_message = input("You: ")
     if user_message == 'quit':
         break
-    if len(chat_history) == '2':
-        chat_history = []
-    result = retrieve_answer(user_message, chat_history)
-    print("Assistant:", result['answer'])
-    print("Sources:", result['sources'])
-    chat_history.append((user_message, result['answer']))
+    if len(messages) == '2':
+        messages = []
+    answer = retrieve_answer(user_message, messages)
+    print("Assistant:", answer)
+    messages.append((user_message, answer))
