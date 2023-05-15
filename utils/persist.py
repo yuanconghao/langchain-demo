@@ -12,14 +12,18 @@ vector_store = "/data/vector_store/index"
 
 
 def run_scan_pdfs():
-    print("111")
-    index = new_store()
+    name = 'pdf'
+    index_path = os.path.join(vector_store, name+".index")
+    if os.path.exists(index_path):
+        index = load_store(
+            dirpath=vector_store,
+            name=name,
+        )
+    else:
+        index = new_store()
+
     total = 0
     while True:
-        # index = load_store(
-        #     dirpath=vector_store,
-        #     name="security",
-        # )
         n = embedding_pdfs(
             index=index,
             fpaths=gen_pdfs(),
