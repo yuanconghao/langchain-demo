@@ -1,8 +1,8 @@
 import os
 import glob
-from embeddings import embedding_pdfs
-from embeddings import embedding_markdowns
-from embeddings import embedding_51talk
+from utils.embeddings import embedding_pdfs
+from utils.embeddings import embedding_markdowns
+from utils.embeddings import embedding_51talk
 
 from const import vector_store
 from const import data_path
