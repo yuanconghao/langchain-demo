@@ -40,8 +40,8 @@ chain = ChatVectorDBChain.from_llm(OpenAI(temperature=0, model_name="gpt-3.5-tur
 
 
 def get_answer(question, chat_history):
-    result = chain({"question": question, "chat_history": chat_history});
-    return result["answer"]
+    result = chain({"question": question, "chat_history": chat_history})
+    return {'answer':result["answer"], 'sources':result['sources']}
 
 
 chat_history = []
@@ -51,6 +51,7 @@ while True:
         break
     if len(chat_history) == '2':
         chat_history = []
-    answer = get_answer(user_message, chat_history)
-    print("Assistant:", answer)
-    chat_history.append((user_message, answer))
+    result = get_answer(user_message, chat_history)
+    print("Assistant:", result['answer'])
+    print("Sources:", result['sources'])
+    chat_history.append((user_message, result['answer']))
