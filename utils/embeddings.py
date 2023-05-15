@@ -102,8 +102,8 @@ def embedding_51talk(index: Index, fpaths, url, replace_by_url):
         loader = UnstructuredFileLoader(fpath)
         document = loader.load()
         split_docs = text_splitter.split_documents(document)
-        docs.append(split_docs.page_content)
-        title = quote(split_docs.page_content.strip().split("\n", maxsplit=1)[0])
+        docs.append(split_docs[0].page_content)
+        title = quote(split_docs[0].page_content.strip().split("\n", maxsplit=1)[0])
         if url:
             fnameurl = quote(fpath.removeprefix(replace_by_url), safe="")
             furl = url + fnameurl

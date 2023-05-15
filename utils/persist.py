@@ -2,6 +2,7 @@ import os
 import glob
 from embeddings import embedding_pdfs
 from embeddings import embedding_markdowns
+from embeddings import embedding_51talk
 
 from const import vector_store
 from const import data_path
@@ -84,7 +85,7 @@ def run_scan_51talk():
     while True:
         files = gen_51talk()
         print(files)
-        n = embedding_markdowns(
+        n = embedding_51talk(
             index=index,
             fpaths=files,
             url="",
