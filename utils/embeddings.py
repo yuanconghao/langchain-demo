@@ -7,7 +7,7 @@ from langchain.document_loaders import UnstructuredFileLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.text_splitter import MarkdownTextSplitter
 
-from const import Index
+from utils.const import Index
 
 N_BACTCH_FILES = 5
 

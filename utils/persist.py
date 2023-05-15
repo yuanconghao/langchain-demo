@@ -4,11 +4,11 @@ from utils.embeddings import embedding_pdfs
 from utils.embeddings import embedding_markdowns
 from utils.embeddings import embedding_51talk
 
-from const import vector_store
-from const import data_path
-from loader import load_store
-from loader import save_store
-from loader import new_store
+from utils.const import vector_store
+from utils.const import data_path
+from utils.loader import load_store
+from utils.loader import save_store
+from utils.loader import new_store
 
 
 def run_scan_pdfs():
