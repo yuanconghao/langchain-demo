@@ -28,7 +28,6 @@ def embedding_pdfs(index: Index, fpaths, url, replace_by_url):
     i = 0
     docs = []
     metadatas = []
-    print(fpaths)
     for fpath in fpaths:
         fname = os.path.split(fpath)[1]
         if is_file_scaned(index, fname):
@@ -40,9 +39,7 @@ def embedding_pdfs(index: Index, fpaths, url, replace_by_url):
             docs.extend(splits)
             for ichunk, _ in enumerate(splits):
                 fnameurl = quote(fpath.removeprefix(replace_by_url), safe="")
-                print(fnameurl)
                 furl = url + fnameurl
-                print(furl)
                 metadatas.append({"source": f"{furl}#page={page + 1}"})
 
         index.scaned_files.add(fname)

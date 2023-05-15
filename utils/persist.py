@@ -14,7 +14,6 @@ vector_store = "/data/vector_store/index"
 def run_scan_pdfs():
     name = 'pdf'
     index_path = os.path.join(vector_store, name+".index")
-    print(index_path)
     if os.path.exists(index_path):
         index = load_store(
             dirpath=vector_store,
@@ -22,7 +21,6 @@ def run_scan_pdfs():
         )
     else:
         index = new_store()
-    print(index)
     total = 0
     while True:
         n = embedding_pdfs(
@@ -44,23 +42,28 @@ def run_scan_pdfs():
 
 
 def run_scan_markdowns():
-    #         index = new_store()
-    while True:
+    name = 'md'
+    index_path = os.path.join(vector_store, name + ".index")
+    if os.path.exists(index_path):
         index = load_store(
             dirpath=vector_store,
-            name="security",
+            name=name,
         )
+    else:
+        index = new_store()
+    total = 0
+    while True:
         files = gen_markdowns()
         n = embedding_markdowns(
             index=index,
             fpaths=files,
-            url="https://s3.laisky.com/public/papers/security/",
+            url="data/md/",
             replace_by_url=os.path.join(data_path, 'md'),
         )
         save_store(
             index=index,
             dirpath=vector_store,
-            name="security",
+            name="md",
         )
 
         print(f"{n=}")
@@ -79,4 +82,5 @@ def gen_pdfs():
 
 
 if __name__ == '__main__':
-    run_scan_pdfs()
+    #run_scan_pdfs()
+    run_scan_markdowns()
