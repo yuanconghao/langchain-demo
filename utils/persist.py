@@ -1,14 +1,13 @@
 import os
 import glob
-from loader import load_store
-from loader import save_store
-from loader import new_store
 from embeddings import embedding_pdfs
 from embeddings import embedding_markdowns
 
-data_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data_path = os.path.join(data_path, 'data')
-vector_store = "/data/vector_store/index"
+from const import vector_store
+from const import data_path
+from loader import load_store
+from loader import save_store
+from loader import new_store
 
 
 def run_scan_pdfs():

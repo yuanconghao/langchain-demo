@@ -1,18 +1,6 @@
-import os
-import glob
-import codecs
-import pickle
-import re
-import textwrap
-from collections import namedtuple
+from utils import loader
+from utils import const
 
-import faiss
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter, MarkdownTextSplitter
-from langchain.vectorstores import FAISS
-from pymongo import MongoClient
-
-from sys import path
 from langchain.chains import VectorDBQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts.chat import (
@@ -32,9 +20,9 @@ messages = [
 ]
 prompt = ChatPromptTemplate.from_messages(messages)
 
-index = load_store(
-    dirpath="/data/vector_store/index",
-    name="security",
+index = loader.load_store(
+    dirpath=const.vector_store,
+    name="md",
 )
 
 chain_type_kwargs = {"prompt": prompt}
@@ -50,7 +38,7 @@ chain = VectorDBQAWithSourcesChain.from_chain_type(
     reduce_k_below_max_tokens=True,
 )
 
-question = "Asher学习心得有哪些"
+question = "谷歌旗下智能家居业务部门有哪些"
 result = chain(
     {
         "question": question,
@@ -59,5 +47,5 @@ result = chain(
 )
 
 print(f"Question: {question}\n")
-print(f"Result: {pretty_print(result['answer'])}\n")
+print(f"Result: {loader.pretty_print(result['answer'])}\n")
 print(f"Sources: {result['sources']}")
