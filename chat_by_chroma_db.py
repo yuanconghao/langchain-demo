@@ -11,7 +11,6 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 
-
 system_template = """Use the following pieces of context to answer the users question.
 Take note of the sources and include them in the answer in the format: "SOURCES: source1 source2", use "SOURCES" in capital letters regardless of the number of sources.
 If you don't know the answer, just say that "I don't know", don't try to make up an answer.
@@ -41,7 +40,11 @@ chain = ChatVectorDBChain.from_llm(OpenAI(temperature=0, model_name="gpt-3.5-tur
 
 def get_answer(question, chat_history):
     result = chain({"question": question, "chat_history": chat_history})
-    return {'answer':result["answer"], 'sources':result['sources']}
+    sources = []
+    if result['source_documents'] is not None:
+        for source in result['source_documents']:
+            sources.append(source.metadata['source'])
+    return {'answer': result["answer"], 'sources': sources}
 
 
 chat_history = []
