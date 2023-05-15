@@ -5,6 +5,23 @@ from langchain.text_splitter import TokenTextSplitter
 from langchain.llms import OpenAI
 from langchain.chains import ChatVectorDBChain
 from langchain.document_loaders import DirectoryLoader
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+
+
+system_template = """Use the following pieces of context to answer the users question.
+Take note of the sources and include them in the answer in the format: "SOURCES: source1 source2", use "SOURCES" in capital letters regardless of the number of sources.
+If you don't know the answer, just say that "I don't know", don't try to make up an answer.
+----------------
+{summaries}"""
+messages = [
+    SystemMessagePromptTemplate.from_template(system_template),
+    HumanMessagePromptTemplate.from_template("{question}")
+]
+prompt = ChatPromptTemplate.from_messages(messages)
 
 # 加载文档
 loader = DirectoryLoader('./data/51talk', glob='**/*.txt')
@@ -19,7 +36,7 @@ vectordb = Chroma.from_documents(doc_texts, embeddings, persist_directory="/data
 vectordb.persist()
 # 创建聊天机器人对象chain
 chain = ChatVectorDBChain.from_llm(OpenAI(temperature=0, model_name="gpt-3.5-turbo"), vectordb,
-                                   return_source_documents=True)
+                                   return_source_documents=True, condense_question_prompt=prompt)
 
 
 def get_answer(question, chat_history):
@@ -28,8 +45,6 @@ def get_answer(question, chat_history):
 
 
 chat_history = []
-
-print("Welcome to the chatbot. Enter 'quit' to exit the program.")
 while True:
     user_message = input("You: ")
     if user_message == 'quit':
