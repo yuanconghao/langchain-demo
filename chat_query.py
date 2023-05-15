@@ -29,8 +29,9 @@ index = loader.load_store(
 chain_type_kwargs = {"prompt": prompt}
 llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",
-    temperature=0,
-    max_tokens=1000)
+    temperature=0.3,
+    max_tokens=1000,
+)
 
 chain = VectorDBQAWithSourcesChain.from_chain_type(
     llm=llm,
