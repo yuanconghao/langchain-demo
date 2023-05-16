@@ -44,6 +44,8 @@ chain = VectorDBQAWithSourcesChain.from_chain_type(
 chat_history = []
 while True:
     question = input("Question: ")
+    question = question.encode('utf-8', 'ignore')
+    question = question.decode('utf-8', 'ignore')
     if question == 'quit':
         break
 
@@ -59,7 +61,6 @@ while True:
     sources = unquote(result['sources'])
     # 如果知识库没有调用openai
     if "I don't know" in answer or sources == '':
-        question = list(question)
         base_result = llm.generate([question])
         print(base_result)
         answer = base_result.generations[0][0].text
