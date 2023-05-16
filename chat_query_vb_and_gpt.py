@@ -4,6 +4,7 @@ from urllib.parse import unquote
 
 from langchain.chains import VectorDBQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
@@ -33,6 +34,8 @@ llm = ChatOpenAI(
     max_tokens=1000,
 )
 
+llmt = OpenAI(model_name="text-davinci-003", temperature=0.3)
+
 chain = VectorDBQAWithSourcesChain.from_chain_type(
     llm=llm,
     vectorstore=index.store,
@@ -60,11 +63,9 @@ while True:
     answer = loader.pretty_print(result['answer'])
     sources = unquote(result['sources'])
     # 如果知识库没有调用openai
-    if "I don't know" in answer or sources == '':
-        base_result = llm.generate([question])
-        print(base_result)
-        answer = base_result.generations[0][0].text
-        sources = 'gpt-3.5-turbo'
+    if ("I don't know" in answer) or (sources == ''):
+        answer = llmt(question)
+        sources = 'text-davinci-003'
     else:
         chat_history.append((question, answer))
 
